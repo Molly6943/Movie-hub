@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { useState } from "react";
+import GenreList from "./components/GenreList";
+import NavBar from "./components/NavBar";
+import { Platform } from "./hooks/useMovies";
+import { Genre } from "./hooks/useGenres";
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export interface GameQuery { 
+  genre: Genre | null;
+  platform: Platform | null;
+  sortOrder: string;
+  searchText: string;
 }
 
-export default App
+function App() {
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+  
+  return (
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+      templateColumns={{
+        base: '1fr',
+        lg: '250px 1fr'
+      }}
+    >
+      <GridItem area="nav">
+        <NavBar onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })} />
+      </GridItem>
+      <Show above="lg">
+        <GridItem area="aside" paddingX={5}>
+          <GenreList selectedGenre={gameQuery.genre} onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre})} />
+        </GridItem>
+      </Show>
+     
+    </Grid>
+  );
+}
+
+export default App;
