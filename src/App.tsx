@@ -1,20 +1,28 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show, Box, Flex } from "@chakra-ui/react";
 import { useState } from "react";
+import MovieGrid from "./components/MovieGird";
+import MovieHeading from "./components/MovieHeading";
+// import PlatformSelector from "./components/PlatformSelector";
+import SortSelector from "./components/SortSelector";
+
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
-import { Platform } from "./hooks/useMovies";
 import { Genre } from "./hooks/useGenres";
 
-
-export interface GameQuery { 
-  genre: Genre | null;
-  platform: Platform | null;
-  sortOrder: string;
-  searchText: string;
+export interface MovieQuery { 
+  genre: Genre;
+  sort_by: string;
+  keywords: string | null;
 }
 
 function App() {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+  const [movieQuery, setmovieQuery] = useState<MovieQuery>({
+    genre: {
+      "id": 28,
+      "name": "Action"
+    },
+    sort_by: 'popularity.desc'
+  } as MovieQuery);
   
   return (
     <Grid
@@ -28,14 +36,25 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar onSearch={(searchText) => setGameQuery({ ...gameQuery, searchText })} />
+        <NavBar onSearch={(keywords) => setmovieQuery({ ...movieQuery, keywords })} />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          <GenreList selectedGenre={gameQuery.genre} onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre})} />
+          <GenreList selectedGenre={movieQuery.genre} onSelectGenre={(genre) => setmovieQuery({ ...movieQuery, genre})} />
         </GridItem>
       </Show>
-     
+      <GridItem area="main">
+        <Box paddingLeft={2}>
+          <MovieHeading movieQuery={movieQuery} />
+          <Flex marginBottom={5}>
+            <Box marginRight={5}>
+              {/* <PlatformSelector selectedPlatform={movieQuery.platform} onSelectPlatform={(platform) => setmovieQuery({ ...movieQuery, platform}) } /> */}
+            </Box>
+            <SortSelector sortOrder={movieQuery.sort_by} onSelectSortOrder={(sort_by) => setmovieQuery({ ...movieQuery, sort_by })} />
+          </Flex>
+        </Box>
+        <MovieGrid movieQuery={movieQuery} />
+      </GridItem>
     </Grid>
   );
 }

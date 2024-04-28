@@ -1,33 +1,41 @@
-import { GameQuery } from "../App";
+import { MovieQuery } from "../App";
 import useData from "./useData";
 
-export interface Platform {
+export interface Movie {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
   id: number;
-  name: string;
-  slug: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }
 
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
+interface MovieResponse {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
 }
 
-const useMovies = (gameQuery: GameQuery) =>
-  useData<Game>(
-    "/games",
+const useMovies = (movieQuery: MovieQuery) =>
+  useData<MovieResponse>(
+    "/3/discover/movie",
     {
       params: {
-        genres: gameQuery.genre?.id,
-        platforms: gameQuery.platform?.id,
-        ordering: gameQuery.sortOrder,
-        search: gameQuery.searchText
+        with_genres: movieQuery.genre.id,
+        sort_by: movieQuery.sort_by,
+        with_keywords: movieQuery.keywords
       },
     },
-    [gameQuery]
+    [movieQuery]
   );
 
 export default useMovies;
