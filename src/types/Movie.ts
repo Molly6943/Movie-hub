@@ -1,4 +1,4 @@
-import { Company, Country, Language } from './common.ts';
+import { Company, Country, Language } from './Common.ts';
 import { Genre } from './Genre';
 
 export type Appended_Video = {

@@ -17,7 +17,7 @@ export const extendedApi = tmdbApi.injectEndpoints({
   endpoints: (build) => ({
     getConfiguration: build.query<ConfigurationType, undefined>({
       query: () => ({
-        url: "/3/configuration"
+        url: "/configuration"
       }),
     }),
   }),

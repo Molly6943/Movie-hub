@@ -4,10 +4,12 @@ import MovieGrid from "./components/MovieGird";
 import MovieHeading from "./components/MovieHeading";
 // import PlatformSelector from "./components/PlatformSelector";
 import SortSelector from "./components/SortSelector";
+// import { MEDIA_TYPE } from "src/types/Common";
 
 import GenreList from "./components/GenreList";
 import NavBar from "./components/NavBar";
 import { Genre } from "./hooks/useGenres";
+// import MovieGridWithInfiniteScroll from "./components/MovieGridWithInfiniteScroll";
 
 export interface MovieQuery { 
   genre: Genre;
@@ -47,9 +49,6 @@ function App() {
         <Box paddingLeft={2}>
           <MovieHeading movieQuery={movieQuery} />
           <Flex marginBottom={5}>
-            <Box marginRight={5}>
-              {/* <PlatformSelector selectedPlatform={movieQuery.platform} onSelectPlatform={(platform) => setmovieQuery({ ...movieQuery, platform}) } /> */}
-            </Box>
             <SortSelector sortOrder={movieQuery.sort_by} onSelectSortOrder={(sort_by) => setmovieQuery({ ...movieQuery, sort_by })} />
           </Flex>
         </Box>

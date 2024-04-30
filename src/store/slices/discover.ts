@@ -1,6 +1,6 @@
-import { TMDB_V3_API_KEY } from "../../constants";
+import { TMDB_V3_API_KEY } from "src/constants";
 import { tmdbApi } from "./apiSlice";
-import { MEDIA_TYPE, PaginatedMovieResult } from "../../types/common";
+import { MEDIA_TYPE, PaginatedMovieResult } from "src/types/Common";
 import { MovieDetail } from "src/types/Movie";
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
@@ -64,11 +64,11 @@ const extendedApi = tmdbApi.injectEndpoints({
         mediaType: MEDIA_TYPE;
         itemKey: number | string;
       },
-      { mediaType: MEDIA_TYPE; genreId: number; page: number }
+      { mediaType: MEDIA_TYPE; genreId: number; page: number, sort_by: string }
     >({
-      query: ({ mediaType, genreId, page }) => ({
+      query: ({ mediaType, genreId, page, sort_by }) => ({
         url: `/discover/${mediaType}`,
-        params: { api_key: TMDB_V3_API_KEY, with_genres: genreId, page },
+        params: { api_key: TMDB_V3_API_KEY, with_genres: genreId, page, sort_by },
       }),
       transformResponse: (
         response: PaginatedMovieResult,
@@ -85,11 +85,11 @@ const extendedApi = tmdbApi.injectEndpoints({
         mediaType: MEDIA_TYPE;
         itemKey: number | string;
       },
-      { mediaType: MEDIA_TYPE; apiString: string; page: number }
+      { mediaType: MEDIA_TYPE; apiString: string; page: number, sort_by: string }
     >({
-      query: ({ mediaType, apiString, page }) => ({
+      query: ({ mediaType, apiString, page, sort_by }) => ({
         url: `/${mediaType}/${apiString}`,
-        params: { api_key: TMDB_V3_API_KEY, page },
+        params: { api_key: TMDB_V3_API_KEY, page, sort_by },
       }),
       transformResponse: (
         response: PaginatedMovieResult,
