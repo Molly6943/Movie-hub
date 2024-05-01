@@ -47,7 +47,7 @@
 - Finally, if you use v3 of TMDB API, create a file named `.env`, and copy and paste the content of `.env.example`.
   And then paste the API Key you just created.
 
-## Third Party libraries used except for React and RTK
+## Third Party libraries used
 
 - [react-router-dom@v6.9](https://reactrouter.com/en/main)
 - [Chakra UI](https://v2.chakra-ui.com/)
