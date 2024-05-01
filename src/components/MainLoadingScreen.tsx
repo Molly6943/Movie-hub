@@ -1,5 +1,4 @@
-import CircularProgress from "@mui/material/CircularProgress";
-
+import { CircularProgress } from '@chakra-ui/react'
 function MainLoadingScreen() {
   return (
     <div
