@@ -27,7 +27,7 @@ function VideoModal({ videos, isOpen, onClose }: Props) {
 
   const opts: YouTubeProps['opts'] = {
     height: '420',
-    width: '720',
+    width: '100%',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
